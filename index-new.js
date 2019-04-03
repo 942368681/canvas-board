@@ -12,8 +12,17 @@ import './lib/drawingboard/index.css';
     var BOARD_ARR = [];
 
     var Board = function (o) {
+        /**
+         * 公有属性
+         */
         this.options = Object.assign({}, o);
-        this.controls = [
+
+        /**
+         * 私有方法和变量
+         * 完成控件的初始化创建
+         * 不对外暴露
+         */
+        var controls = [
             "Color",
             {
                 Size: {
@@ -23,9 +32,18 @@ import './lib/drawingboard/index.css';
             'Navigation',
             { DrawingMode: { filler: false } }
         ];
-        this.init();
+
+        var init = function () {
+            Z_INDEX = this.options.zIndex;
+        };
+
+        init();
     };
 
+    /**
+     * 公有方法
+     * 外部调用的API
+     */
     Board.prototype = {
         init: function () {
             Z_INDEX = this.options.zIndex;
