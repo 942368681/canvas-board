@@ -1,6 +1,5 @@
 const path = require('path');
 const cleanWebpackPlugin = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
@@ -17,8 +16,7 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [
-                    // 'style-loader',
-                    MiniCssExtractPlugin.loader,
+                    'style-loader',
                     'css-loader'
                 ]
             },
@@ -59,9 +57,6 @@ module.exports = {
             template: 'index.html',
             hash: true,
             filename: 'index.html'
-        }),
-        new MiniCssExtractPlugin({
-            filename: 'canvas-board.min.css'
         }),
         new cleanWebpackPlugin()
     ],
