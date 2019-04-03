@@ -13,7 +13,6 @@ module.exports = merge(baseConfig, {
     optimization: {
         minimizer: [
             new UglifyJsPlugin({
-                exclude: /\.min\.js$/,
                 cache: true,
                 parallel: true,
                 sourceMap: true
