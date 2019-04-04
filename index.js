@@ -120,10 +120,10 @@ import './lib/drawingboard/index.css';
                     info.zIndex = Z_INDEX_TOTAL;
                     break;
                 case 'video':
-                
+                    return alert("暂不支持");
                     break;
                 case 'audio':
-                
+                    return alert("暂不支持");
                     break;
                 default:
                     break;
