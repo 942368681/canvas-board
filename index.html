@@ -22,21 +22,23 @@
     </div>
 </body>
 <script>
-    var b1 = new window.Board({
+    var myboard = new window.Board({
       "el": ".box",
-      "color": "#000",
-      "size": 10,
-      "zIndex": 1
+      "zIndexInfo": [
+          {
+            "color": "#000",
+            "size": 10,
+            "zIndex": 1
+          },
+          {
+            "color": "#000",
+            "size": 10,
+            "zIndex": 2
+          }
+      ],
+    //   "mediaControlsData": [{type: "img", url: ""}],
+      "mediaTypes": ['img', 'video', 'audio']
     });
-    console.log(b1.getZindex());
-    var b2 = new window.Board({
-      "el": ".box",
-      "color": "#000",
-      "size": 10,
-      "zIndex": 2
-    });
-    console.log(b2.getZindex());
-    console.log(b2.getBoardInfo());
 </script>
 
 </html>
