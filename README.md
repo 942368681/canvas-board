@@ -28,11 +28,21 @@ import 'canvas-board';
 基本使用:
 
 ```bash
-var myBoard = new window.Board({
+var myboard = new window.Board({
     "el": ".box",
-    "color": "#000",
-    "size": 10,
-    "zIndex": 1
+    "zIndexInfo": [
+        {
+            "color": "#000",
+            "size": 10,
+            "zIndex": 1
+        },
+        {
+            "color": "#000",
+            "size": 10,
+            "zIndex": 2
+        }
+    ],
+    "mediaTypes": ['img', 'video', 'audio']
 });
 ```
 
@@ -40,20 +50,39 @@ var myBoard = new window.Board({
 
 ```bash
     el: 画板容器元素,支持id选择符,类选择符和元素选择符 | String
-    color: 默认画笔颜色 | String
-    size: 默认画笔粗细 | Number
-    zIndex: 创建该画布在容器中的层级(若有多层画布,每个画布的zIndex应该不同) | Number
+    zIndexInfo: 画板初始化层级以及每层画布的初始参数(详情见zIndexInfo说明)，支持多级画布 | Array
+    mediaTypes: 初始化多媒体按钮组按钮类型 | Array
+```
+
+## zIndexInfo说明
+
+```bash
+    {
+        "color": "#000", // 该层画布画笔默认颜色 | String
+        "size": 10, // 该层画布画笔默认粗细 | Number
+        "zIndex": 1 // 该层画布在画板容器中的层级 | Number
+    }
 ```
 
 ## API
 
 以创建好的myBoard实例为例:
 
-##### 返回画板层级数
+##### 返回画板层级信息
 
 ```bash
-    let num = myBoard.getZindex();
-    console.log(num);
+    let obj = myBoard.getZindex();
+    console.log(obj);
+    /*
+        返回值是一个含有层级信息的对象
+        {
+            board: 0,   // 画布层数
+            img: 2,     // 图片控件层数
+            video: 0,   // 视频控件层数
+            audio: 0,   // 音频控件层数
+            total: 2    // 画板容器内总层数
+        }
+    */
 ```
 
 ##### 返回画板容器信息
@@ -65,10 +94,12 @@ var myBoard = new window.Board({
         返回值是一个带有每一层画布信息的数组
         [
             {
+                "type": "board", // 该层级的类型，与mediaTypes中的类型一一对应
                 "boardItem": board1, // 画布实例
                 "zIndex": 1 // 画布在该画板容器中的层级
             },
             {
+                "type": "board",
                 "boardItem": board2,
                 "zIndex": 2
             }
