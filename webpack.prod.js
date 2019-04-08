@@ -6,6 +6,7 @@ const cleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
 
 module.exports = merge(baseConfig, {
+    entry: './index.js',
     output: {
         path: path.resolve(__dirname, 'dist/'),
         filename: 'canvas-board.min.js'

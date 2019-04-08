@@ -28,7 +28,7 @@ import 'canvas-board';
 基本使用:
 
 ```bash
-var myboard = new window.Board({
+var myboard = window.Board({
     "el": ".box",
     "zIndexInfo": [
         {

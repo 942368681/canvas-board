@@ -5,13 +5,14 @@ const path = require('path');
 
 module.exports = merge(baseConfig, {
     devtool: 'cheap-module-eval-source-map',
+    entry: './example/index.js',
     output: {
         path: path.resolve(__dirname, 'dist/'),
         filename: 'canvas-board.js'
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: 'index.html',
+            template: 'example/index.html',
             hash: true,
             filename: 'index.html'
         }),
