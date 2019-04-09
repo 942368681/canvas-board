@@ -1,4 +1,5 @@
-import '../src/canvas-board';
+import Board from '../src/canvas-board';
+console.log(Board);
 
 const myboard = Board({
     "el": ".box",

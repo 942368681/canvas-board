@@ -3,8 +3,9 @@
  * 基于drawingboard.js封装的画板组件
  * author: sfl
  */
-require('../lib/drawingboard/index');
-require('../lib/drawingboard/index.css');
+
+import '../lib/drawingboard/index';
+import '../lib/drawingboard/index.css';
 
 ;
 (function (w, d) {
@@ -279,11 +280,11 @@ require('../lib/drawingboard/index.css');
         self.flag = false;
     }
 
+    
     /**
      * 图片类
      * 产出图片dom
      */
-
     function Image(data, coordinate) {
         this.url = data;
         this.coordinate = coordinate;
@@ -299,4 +300,8 @@ require('../lib/drawingboard/index.css');
         }
     };
 
+    
 })(typeof window !== 'undefined' ? window : global, document);
+
+const Board = window.Board;
+export default Board;
