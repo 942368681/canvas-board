@@ -23,8 +23,9 @@ module.exports = {
                     {
                         loader: 'url-loader',
                         options: {
-                            limit: 50000,
-                            name: 'dist/img/[name]_[hash:8].[ext]'
+                            limit: 200*1024,
+                            name: '[name]_[hash:8].[ext]',
+                            outputPath: 'img/'
                         }
                     }
                 ]
@@ -35,7 +36,7 @@ module.exports = {
                     {
                         loader: 'file-loader',
                         options: {
-                            name: 'dist/fonts/[name]_[hash:8].[ext]'
+                            name: 'fonts/[name]_[hash:8].[ext]'
                         }
                     }
                 ]

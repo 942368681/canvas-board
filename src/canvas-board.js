@@ -4,8 +4,11 @@
  * author: sfl
  */
 
+import '../lib/font/font';
 import '../lib/drawingboard/index';
 import '../lib/drawingboard/index.css';
+import {Image} from './components/image/image';
+import {Audio} from './components/audio/audio';
 
 ;
 (function (w, d) {
@@ -24,6 +27,7 @@ import '../lib/drawingboard/index.css';
          * 完成控件的初始化创建
          * 不对外暴露
          */
+        var _self = this;
         var options = Object.assign({}, o);
         var controls = [
             "Color",
@@ -110,41 +114,10 @@ import '../lib/drawingboard/index.css';
                  * 确认后，拿到数据data，走下文方法
                  */
                 var data = "https://s.gravatar.com/avatar/7d228fb734bde96e1bae224107cc48cb"; // :)
-                if (ev.target.dataset.type) createDragDom(ev.target.dataset.type, data);
+                if (ev.target.dataset.type) _self.createDragDom(ev.target.dataset.type, data, getRandomPosition, true);
             });
             WRAP_DOM.appendChild(toolBarBox);
         };
-
-        // 创建多媒体元素并初始化拖拽
-        var createDragDom = function (type, data) {
-            Z_INDEX_TOTAL += 1;
-            var dom = null;
-            var info = {
-                type: "",
-                dom: "",
-                zIndex: ""
-            };
-            var coordinate = getRandomPosition();
-            switch (type) {
-                case 'img':
-                    dom = new Image(data, coordinate).dom;
-                    info.type = "img";
-                    info.dom = dom;
-                    info.zIndex = Z_INDEX_TOTAL;
-                    break;
-                case 'video':
-                    return alert("暂不支持");
-                    break;
-                case 'audio':
-                    return alert("暂不支持");
-                    break;
-                default:
-                    break;
-            }
-            BOARD_ARR.push(info);
-            WRAP_DOM.appendChild(dom);
-            new Drag(dom);
-        }
 
         // 获取画板随机位置
         var getRandomPosition = function () {
@@ -168,6 +141,7 @@ import '../lib/drawingboard/index.css';
      * API
      */
     Board.prototype.fn.prototype = {
+        constructor: Board.prototype.fn,
         // 获取画板层级信息
         getZindex: function () {
             return {
@@ -189,12 +163,43 @@ import '../lib/drawingboard/index.css';
         // 获取画板各层级信息
         getBoardInfo: function () {
             return BOARD_ARR;
+        },
+        // 创建多媒体元素并初始化拖拽
+        createDragDom: function (type, data, getRandomPosition, initDrag) {
+            Z_INDEX_TOTAL += 1;
+            var dom = null;
+            var info = {
+                type: "",
+                dom: "",
+                zIndex: ""
+            };
+            var coordinate = getRandomPosition();
+            switch (type) {
+                case 'img':
+                    dom = new Image(data, coordinate, Z_INDEX_TOTAL).dom;
+                    info.type = "img";
+                    info.dom = dom;
+                    info.zIndex = Z_INDEX_TOTAL;
+                    break;
+                case 'video':
+                    return alert("暂不支持");
+                    break;
+                case 'audio':
+                    dom = new Audio(data, coordinate, Z_INDEX_TOTAL).dom;
+                    info.type = "audio";
+                    info.dom = dom;
+                    info.zIndex = Z_INDEX_TOTAL;
+                    break;
+                default:
+                    break;
+            }
+            BOARD_ARR.push(info);
+            WRAP_DOM.appendChild(dom);
+            if (initDrag) new Drag(dom);
         }
     };
 
-    if(!w.Board){
-        w.Board =  Board;
-    }
+    if(!w.Board) w.Board =  Board;
 
 
     /**
@@ -279,26 +284,6 @@ import '../lib/drawingboard/index.css';
     Drag.prototype.end = function (self) {
         self.flag = false;
     }
-
-    
-    /**
-     * 图片类
-     * 产出图片dom
-     */
-    function Image(data, coordinate) {
-        this.url = data;
-        this.coordinate = coordinate;
-        this.dom = null;
-        this.init();
-    }
-
-    Image.prototype = {
-        init: function () {
-            this.dom = d.createElement('img');
-            this.dom.style.cssText = "width: 100px; height: 100px; border: 0; display: block; position: absolute; background: #f1f1f1; left: " + this.coordinate.x + "px; top: " + this.coordinate.y + "px; z-index: " + Z_INDEX_TOTAL + "";
-            this.dom.setAttribute('src', this.url);
-        }
-    };
 
     
 })(typeof window !== 'undefined' ? window : global, document);
