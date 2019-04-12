@@ -133,7 +133,7 @@ import {Audio} from './components/audio/audio';
                  * 确认后，拿到数据data，走下文方法
                  */
                 var data = "https://s.gravatar.com/avatar/7d228fb734bde96e1bae224107cc48cb"; // :)
-                if (ev.target.dataset.type) _self.createDragDom(ev.target.dataset.type, data, getRandomPosition, true);
+                if (ev.target.dataset.type) _self.createMediaDom(ev.target.dataset.type, data, getRandomPosition, true);
             }, true);
             WRAP_DOM.appendChild(toolBarBox);
         };
@@ -184,7 +184,7 @@ import {Audio} from './components/audio/audio';
             return BOARD_ARR;
         },
         // 创建多媒体元素并初始化拖拽
-        createDragDom: function (type, data, getRandomPosition, initDrag) {
+        createMediaDom: function (type, data, getRandomPosition, initDrag) {
             Z_INDEX_TOTAL += 1;
             var dom = null;
             var info = {
