@@ -1,5 +1,4 @@
 import './audio.css';
-import '../../../lib/icon/iconfont.css';
 
 export const Audio = function (data, coordinate, Z_INDEX_TOTAL) {
     // this.url = data;

@@ -15,7 +15,7 @@ const myboard = Board({
         }
     ],
     //   "mediaControlsData": [{type: "img", url: ""}],
-    "mediaTypes": ['img', 'video', 'audio']
+    "mediaTypes": ['img', 'audio', 'video']
 });
 
 console.log(myboard);

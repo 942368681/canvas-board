@@ -7,6 +7,8 @@
 import '../lib/font/font';
 import '../lib/drawingboard/index';
 import '../lib/drawingboard/index.css';
+import '../lib/icon/iconfont.css';
+import './canvas-board.css';
 import {Image} from './components/image/image';
 import {Audio} from './components/audio/audio';
 
@@ -58,7 +60,7 @@ import {Audio} from './components/audio/audio';
         var createBoard = function (obj) {
             var item = d.createElement('div');
             item.setAttribute("id", "board-" + obj.zIndex);
-            item.style.cssText = "position: absolute; width: 100%; height: 100%; z-index: " + obj.zIndex + ";";
+            item.style.cssText = "z-index: " + obj.zIndex + ";";
             WRAP_DOM.appendChild(item);
             var board = new w.DrawingBoard.Board(item.id, {
                 background: false,
@@ -97,14 +99,31 @@ import {Audio} from './components/audio/audio';
         // 创建工具按钮组并添加点击事件
         var createToolBar = function () {
             var toolBarBox = d.createElement('div');
-            toolBarBox.setAttribute("class", "canvas-board-toolbar");
-            toolBarBox.style.cssText = "position: absolute; right: 0; bottom: -50px; height: 40px;";
+            toolBarBox.setAttribute("class", "canvas-board-toolbar-box");
             for (var i = 0, l = options.mediaTypes.length; i < l; i++) {
                 var oType = options.mediaTypes[i];
                 var oBtn = d.createElement('div');
                 oBtn.setAttribute("class", "canvas-board-toolbar " + oType + "-btn");
                 oBtn.setAttribute('data-type', oType);
-                oBtn.style.cssText = "width: 40px; height: 40px; float: left; margin-left: 18px; border-radius: 8px; background: #999; cursor: pointer;";
+                var icon = document.createElement('i');
+                var iconClass = "";
+                switch (oType) {
+                    case 'img':
+                        iconClass = "iconfont icontupian";
+                        break;
+                    case 'audio':
+                        iconClass = "iconfont iconyinpin";
+                        break;
+                    case 'video':
+                        iconClass = "iconfont iconshipin";
+                        break;
+                    default:
+                        iconClass = "iconfont iconzujian";
+                        break;
+                }
+                icon.setAttribute("class", iconClass);
+                icon.setAttribute('data-type', oType);
+                oBtn.appendChild(icon);
                 toolBarBox.appendChild(oBtn);
             }
             toolBarBox.addEventListener('click', function (ev) {
@@ -115,7 +134,7 @@ import {Audio} from './components/audio/audio';
                  */
                 var data = "https://s.gravatar.com/avatar/7d228fb734bde96e1bae224107cc48cb"; // :)
                 if (ev.target.dataset.type) _self.createDragDom(ev.target.dataset.type, data, getRandomPosition, true);
-            });
+            }, true);
             WRAP_DOM.appendChild(toolBarBox);
         };
 
@@ -191,6 +210,7 @@ import {Audio} from './components/audio/audio';
                     info.zIndex = Z_INDEX_TOTAL;
                     break;
                 default:
+                    return alert("未知类型控件");
                     break;
             }
             BOARD_ARR.push(info);
@@ -230,7 +250,6 @@ import {Audio} from './components/audio/audio';
     }
     //按下
     Drag.prototype.down = function (self) {
-        event.preventDefault();
         self.flag = true;
         var touch;
         if (event.touches) {

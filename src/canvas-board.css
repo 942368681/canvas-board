@@ -1,0 +1,37 @@
+.drawing-board {
+    position: absolute;
+    width: 100%;
+    height: 92%;
+}
+
+.canvas-board-toolbar-box {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 0.4rem;
+}
+
+.canvas-board-toolbar-box .canvas-board-toolbar {
+    width: 0.4rem;
+    height: 0.4rem;
+    float: left;
+    margin-left: 0.18rem;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 1px solid #999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.canvas-board-toolbar-box .canvas-board-toolbar i {
+    font-style: normal;
+    color: #999;
+}
+.canvas-board-toolbar-box .canvas-board-toolbar:hover {
+    transition: 0.8s;
+    border-color: #333;
+}
+.canvas-board-toolbar-box .canvas-board-toolbar:hover i {
+    transition: 0.5s;
+    color: #333;
+}

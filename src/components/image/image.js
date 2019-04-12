@@ -10,9 +10,14 @@ export const Image = function (data, coordinate, Z_INDEX_TOTAL) {
 
 Image.prototype = {
     init: function () {
-        this.dom = document.createElement('img');
-        this.dom.setAttribute("class", "drag-img")
+        this.dom = document.createElement('div');
+        this.dom.setAttribute("class", "drag-img");
         this.dom.style.cssText = "left: " + this.coordinate.x + "px; top: " + this.coordinate.y + "px; z-index: " + this.zIndex + "";
-        this.dom.setAttribute('src', this.url);
+        var img = document.createElement('img');
+        img.setAttribute('src', this.url);
+        img.addEventListener('mousedown', function (ev) {
+            ev.preventDefault()
+        })
+        this.dom.appendChild(img);
     }
 };
