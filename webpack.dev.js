@@ -19,7 +19,7 @@ module.exports = merge(baseConfig, {
     ],
     devServer: {
         host: 'localhost',
-        port: 3009,
+        port: 3006,
         progress: true,
         open: true,
         compress: true,
